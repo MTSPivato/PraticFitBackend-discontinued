@@ -1,5 +1,5 @@
 bool production() {
-  return true;
+  return false;
 }
 
 String serverUrl() => production() ? '191.252.195.175' : '0.0.0.0';
