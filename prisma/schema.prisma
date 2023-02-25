@@ -1,6 +1,10 @@
+generator client {
+  provider = "prisma-client-dart"
+}
+
 datasource db {
-	provider = "postgresql"
-	url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -8,6 +12,9 @@ model User {
 	name     				String   
 	email 	  			String	 @unique
 	password 				String
+	dt_created 			DateTime @default(now())
+	dt_updated 			DateTime @default(now())
+	dt_desactivated DateTime?
 	role     				UserRole @default(user)
 }
 
