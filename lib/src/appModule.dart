@@ -4,6 +4,7 @@ import 'package:PraticFitBackend/src/modules/user/userResouce.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_modular/shelf_modular.dart';
 import 'core/services/database/postgres/postgresDatabase.dart';
+import 'modules/user/swagger/swaggerHandler.dart';
 
 class AppModule extends Module {
   @override
@@ -15,6 +16,7 @@ class AppModule extends Module {
   @override
   List<ModularRoute> get routes => [
         Route.get('/', (Request request) => Response.ok('Home')),
+        Route.get('/documentation/**', swaggerHandler),
         Route.resource(UserResource())
       ];
 }
