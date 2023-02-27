@@ -9,27 +9,27 @@ datasource db {
 
 // tabela responsavel por armazenar os dados do usuario
 model User {
-  id            Int         @id @default(autoincrement())
-  nome          String
-  email         String      @unique
-  senha         String
-  cpf           String?     @unique
-  telefone      String?     @unique
-  cidade        String?
-  estado        String?
-  cep           String?
-  aniversario   DateTime?
-  genero        GenderEnum?
-  dt_criado     DateTime    @default(now())
-  dt_updated    DateTime?
-  dt_desativado DateTime?
-  role          UserRole    @default(user)
+  id             Int         @id @default(autoincrement())
+  name           String
+  email          String      @unique
+  password       String
+  cpf            String?     @unique
+  phone          String?     @unique
+  city           String?
+  state          String?
+  cep            String?
+  birth_date     DateTime?
+  gender         GenderEnum?
+  role           UserRole    @default(user)
+  created_at     DateTime    @default(now())
+  updated_at     DateTime?
+  desactivate_at DateTime?
 }
 
 // enum responsavel por armazenar os generos
 enum GenderEnum {
-  Masculino
-  Feminino
+  Male
+  Female
 }
 
 // enum responsavel por armazenar os tipos de usuario
@@ -39,68 +39,68 @@ enum UserRole {
 }
 
 // tabela responsavel por armazenar os dados da academia
-model Academia {
-  id            Int       @id @default(autoincrement())
-  nome          String
-  razao_social  String?
-  cnpj          String?   @unique
-  telefone      String?   @unique
-  email         String?   @unique
-  senha         String
-  cidade        String?
-  estado        String?
-  cep           String?
-  dt_criado     DateTime  @default(now())
-  dt_updated    DateTime
-  dt_desativado DateTime?
+model Gym {
+  id             Int       @id @default(autoincrement())
+  name           String
+  razao_social   String?
+  cnpj           String?   @unique
+  phone          String?   @unique
+  email          String?   @unique
+  password       String
+  city           String?
+  state          String?
+  cep            String?
+  created_at     DateTime  @default(now())
+  updated_at     DateTime?
+  desactivate_at DateTime?
 }
 
 // tabela responsavel por vincular a conta do personal com o usuario dele
 model Personal {
-  id            Int       @id @default(autoincrement())
-  id_usuario    Int
-  cref          String?   @unique
-  dt_criado     DateTime  @default(now())
-  dt_updated    DateTime
-  dt_desativado DateTime?
+  id             Int       @id @default(autoincrement())
+  user_id        Int
+  cref           String?   @unique
+  created_at     DateTime  @default(now())
+  updated_at     DateTime?
+  desactivate_at DateTime?
 }
 
 // tabela responsavel por vincular a conta do nutricionista com o usuario dele
-model Nutricionista {
-  id            Int       @id @default(autoincrement())
-  id_usuario    Int
-  crn           String?   @unique
-  dt_criado     DateTime  @default(now())
-  dt_updated    DateTime
-  dt_desativado DateTime?
+model Nutritionist {
+  id             Int       @id @default(autoincrement())
+  user_id        Int
+  crn            String?   @unique
+  created_at     DateTime  @default(now())
+  updated_at     DateTime?
+  desactivate_at DateTime?
 }
 
 // tabela responsavel por vincular o usuario com a academia
-model Academia_Usuario {
-  id            Int       @id @default(autoincrement())
-  academia_id   Int
-  usuario_id    Int
-  dt_vinculacao DateTime  @default(now())
-  dt_aprovacao  DateTime?
-  dt_desativado DateTime?
+model Gym_User {
+  id             Int       @id @default(autoincrement())
+  gym_id         Int
+  user_id        Int
+  dt_binding     DateTime  @default(now())
+  dt_approved    DateTime?
+  desactivate_at DateTime?
 }
 
 // tabela responsavel por vincular o usuario com o personal
-model Personal_Usuario {
-  id            Int       @id @default(autoincrement())
-  personal_id   Int
-  usuario_id    Int
-  dt_vinculacao DateTime  @default(now())
-  dt_aprovacao  DateTime?
-  dt_desativado DateTime?
+model Personal_User {
+  id             Int       @id @default(autoincrement())
+  personal_id    Int
+  user_id        Int
+  dt_binding     DateTime  @default(now())
+  dt_approved    DateTime?
+  desactivate_at DateTime?
 }
 
 // tabela responsavel por vincular o usuario com o nutricionista
-model Nutricionista_Usuario {
-  id               Int       @id @default(autoincrement())
-  nutricionista_id Int
-  usuario_id       Int
-  dt_vinculacao    DateTime  @default(now())
-  dt_aprovacao     DateTime?
-  dt_desativado    DateTime?
+model Nutritionist_User {
+  id              Int       @id @default(autoincrement())
+  nutritionist_id Int
+  user_id         Int
+  dt_binding      DateTime  @default(now())
+  dt_approved     DateTime?
+  desactivate_at  DateTime?
 }

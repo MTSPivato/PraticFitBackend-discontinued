@@ -17,7 +17,7 @@ class UserResource extends Resource {
   FutureOr<Response> _getAllUser(Injector injector) async {
     final database = injector.get<RemoteDatabase>();
     final result = await database
-        .query('SELECT id, nome, email, role FROM public."User";');
+        .query('SELECT id, name, email, role FROM public."User";');
     final listUser = result.map((e) => e['User']).toList();
     return Response.ok(jsonEncode(listUser));
   }
@@ -27,7 +27,7 @@ class UserResource extends Resource {
     final id = arguments.params['id'];
     final database = injector.get<RemoteDatabase>();
     final result = await database.query(
-        'SELECT id, nome, email, role FROM public."User" WHERE id = @id;',
+        'SELECT id, name, email, role FROM public."User" WHERE id = @id;',
         variables: {'id': id});
     final userMap = result.map((element) => element['User']).first;
     return Response.ok(jsonEncode(userMap));
@@ -39,7 +39,7 @@ class UserResource extends Resource {
     userParams.remove('id');
     final database = injector.get<RemoteDatabase>();
     final result = await database.query(
-        'INSERT INTO "User" (nome, email, senha) VALUES (@nome, @email, @senha) RETURNING id, email, nome;',
+        'INSERT INTO "User" (name, email, password) VALUES (@name, @email, @password) RETURNING id, email, name;',
         variables: userParams);
     final userMap = result.map((e) => e['User']).first;
     return Response.ok(jsonEncode(userMap));
@@ -50,14 +50,14 @@ class UserResource extends Resource {
     final userParams = (arguments.data as Map).cast<String, dynamic>();
 
     final columns = userParams.keys
-        .where((element) => element != 'id' || element != 'senha')
+        .where((element) => element != 'id' || element != 'password')
         .map(
           (key) => '$key=@$key',
         )
         .toList();
     final database = injector.get<RemoteDatabase>();
     final result = await database.query(
-        'UPDATE "User" SET ${columns.join(',')} WHERE id = @id RETURNING id, email, nome;',
+        'UPDATE "User" SET ${columns.join(',')} WHERE id = @id RETURNING id, email, name;',
         variables: userParams);
     final userMap = result.map((e) => e['User']).first;
     return Response.ok(jsonEncode(userMap));
