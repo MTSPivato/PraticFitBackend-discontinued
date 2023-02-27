@@ -11,6 +11,7 @@ class UserResource extends Resource {
         Route.get('/user/:id', _getUserById),
         Route.post('/user', _createUser),
         Route.put('/user/:id', _updateUser),
+        Route.post('/userUpdate/:id', _userUpdate),
         Route.delete('/user/:id', _deleteUser),
       ];
 
@@ -33,15 +34,38 @@ class UserResource extends Resource {
     return Response.ok(jsonEncode(userMap));
   }
 
-  FutureOr<Response> _createUser(ModularArguments arguments) {
-    return Response.ok('Created user: ${arguments.data}');
+  FutureOr<Response> _createUser(
+      ModularArguments arguments, Injector injector) async {
+    final userMap = arguments.data as Map;
+
+    userMap.remove('id');
+
+    final database = injector.get<RemoteDatabase>();
+    final user = arguments.data;
+    final result = await database.query(
+        'INSERT INTO public."User" (name, email, password, role) VALUES (@name, @email, @password, @role) RETURNING id;',
+        variables: {
+          'name': user['name'],
+          'email': user['email'],
+          'password': user['password'],
+          'role': user['role']
+        });
+    final id = result.map((e) => e['User']).first!['id'];
+    return Response.ok(jsonEncode({'id': id}));
   }
 
-  FutureOr<Response> _updateUser(ModularArguments arguments) {
+  FutureOr<Response> _updateUser(
+      ModularArguments arguments, Injector injector) async {
     return Response.ok('Updated user: ${arguments.data}');
   }
 
-  FutureOr<Response> _deleteUser(ModularArguments arguments) {
+  FutureOr<Response> _userUpdate(
+      ModularArguments arguments, Injector injector) async {
+    return Response.ok('Updated user: ${arguments.params['id']}');
+  }
+
+  FutureOr<Response> _deleteUser(
+      ModularArguments arguments, Injector injector) async {
     return Response.ok('Deleted user: ${arguments.params['id']}');
   }
 }
