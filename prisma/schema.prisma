@@ -8,7 +8,7 @@ datasource db {
 }
 
 // tabela responsavel por armazenar os dados do usuario
-model Usuario {
+model User {
   id            Int         @id @default(autoincrement())
   nome          String
   email         String      @unique
@@ -21,7 +21,7 @@ model Usuario {
   aniversario   DateTime?
   genero        GenderEnum?
   dt_criado     DateTime    @default(now())
-  dt_updated    DateTime
+  dt_updated    DateTime?
   dt_desativado DateTime?
   role          UserRole    @default(user)
 }
