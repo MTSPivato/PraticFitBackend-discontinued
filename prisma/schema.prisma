@@ -28,8 +28,8 @@ model User {
 
 // enum responsavel por armazenar os generos
 enum GenderEnum {
-  Male
-  Female
+  male
+  female
 }
 
 // enum responsavel por armazenar os tipos de usuario
