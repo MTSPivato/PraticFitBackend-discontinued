@@ -1,22 +1,22 @@
-import 'package:PraticFitBackend/src/core/services/database/remoteDatabase.dart';
-import 'package:PraticFitBackend/src/core/services/dotEnv/dotEnvService.dart';
-import 'package:PraticFitBackend/src/modules/user/userResouce.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_modular/shelf_modular.dart';
-import 'core/services/database/postgres/postgresDatabase.dart';
-import 'modules/user/swagger/swaggerHandler.dart';
+
+import 'core/coreModule.dart';
+import 'features/auth/authModule.dart';
+import 'features/swagger/swaggerHandler.dart';
+import 'features/user/userResource.dart';
 
 class AppModule extends Module {
   @override
-  List<Bind> get binds => [
-        Bind.instance<DotEnvService>(DotEnvService.instance),
-        Bind.singleton<RemoteDatabase>((i) => PostgresDatabase(i())),
+  List<Module> get imports => [
+        CoreModule(),
       ];
 
   @override
   List<ModularRoute> get routes => [
-        Route.get('/', (Request request) => Response.ok('Home')),
+        Route.get('/', (Request request) => Response.ok('Inicial')),
         Route.get('/documentation/**', swaggerHandler),
-        Route.resource(UserResource())
+        Route.resource(UserResource()),
+        Route.module('/auth', module: AuthModule()),
       ];
 }

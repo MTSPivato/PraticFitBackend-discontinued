@@ -1,7 +1,11 @@
+// Esse arquivo é responsavel por armazenar as configurações do banco de dados
+
+// Gerencia o client do prisma
 generator client {
   provider = "prisma-client-dart"
 }
 
+// Gerencia o tipo de banco de dados
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")

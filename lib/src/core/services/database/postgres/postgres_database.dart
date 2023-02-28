@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:PraticFitBackend/src/core/services/database/remoteDatabase.dart';
 import 'package:PraticFitBackend/src/core/services/dotEnv/dotEnvService.dart';
 import 'package:postgres/postgres.dart';
@@ -13,8 +14,9 @@ class PostgresDatabase implements RemoteDatabase, Disposable {
   }
 
   _init() async {
-    final url = dotEnv['DATABASE_URL'];
-    final uri = Uri.parse(url!);
+    final url = dotEnv['DATABASE_URL']!;
+
+    final uri = Uri.parse(url);
 
     var connection = PostgreSQLConnection(
       uri.host,
