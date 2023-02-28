@@ -7,7 +7,7 @@ FutureOr<Response> swaggerHandler(Request request) {
   final path = 'specs/swagger.yaml';
   final handler = SwaggerUI(
     path,
-    title: 'Semana do Backend',
+    title: 'Pratic Fit',
     deepLink: true,
   );
   return handler(request);
