@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:PraticFitBackend/src/core/services/bcrypt/bcryptService.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_modular/shelf_modular.dart';
 import '../../core/services/database/remoteDatabase.dart';
 
+//* Classe responsável por gerenciar as rotas do recurso de usuário
 class UserResource extends Resource {
   @override
+  //* Lista de rotas do recurso
   List<Route> get routes => [
         Route.get('/user', _getAllUser),
         Route.get('/user/:id', _getUserById),
@@ -14,6 +17,7 @@ class UserResource extends Resource {
         Route.delete('/user/:id', _deleteUser),
       ];
 
+  //* Modulo responsável por retornar todos os usuários
   FutureOr<Response> _getAllUser(Injector injector) async {
     final database = injector.get<RemoteDatabase>();
     final result = await database
@@ -22,6 +26,7 @@ class UserResource extends Resource {
     return Response.ok(jsonEncode(listUser));
   }
 
+  //* Modulo responsável por retornar um usuário pelo id
   FutureOr<Response> _getUserById(
       ModularArguments arguments, Injector injector) async {
     final id = arguments.params['id'];
@@ -33,9 +38,12 @@ class UserResource extends Resource {
     return Response.ok(jsonEncode(userMap));
   }
 
+  //* Modulo responsável por criar um usuário
   FutureOr<Response> _createUser(
       ModularArguments arguments, Injector injector) async {
+    final bcrypt = injector.get<BCryptService>();
     final userParams = (arguments.data as Map).cast<String, dynamic>();
+    userParams['password'] = bcrypt.generateHash(userParams['password']);
     userParams.remove('id');
     final database = injector.get<RemoteDatabase>();
     final result = await database.query(
@@ -45,6 +53,7 @@ class UserResource extends Resource {
     return Response.ok(jsonEncode(userMap));
   }
 
+  //* Modulo responsável por atualizar um usuário
   FutureOr<Response> _updateUser(
       ModularArguments arguments, Injector injector) async {
     final userParams = (arguments.data as Map).cast<String, dynamic>();
@@ -63,6 +72,7 @@ class UserResource extends Resource {
     return Response.ok(jsonEncode(userMap));
   }
 
+  //* Modulo responsável por deletar um usuário
   FutureOr<Response> _deleteUser(
       ModularArguments arguments, Injector injector) async {
     final id = arguments.params['id'];

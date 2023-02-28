@@ -1,11 +1,15 @@
 import 'dart:io';
 
+// Classe responsável por gerenciar as variáveis de ambiente
 class DotEnvService {
   final Map<String, String> _map = {};
-  static DotEnvService instance = DotEnvService._();
 
-  DotEnvService._() {
-    _init();
+  DotEnvService({Map<String, String>? mocks}) {
+    if (mocks == null) {
+      _init();
+    } else {
+      _map.addAll(mocks);
+    }
   }
 
   void _init() {

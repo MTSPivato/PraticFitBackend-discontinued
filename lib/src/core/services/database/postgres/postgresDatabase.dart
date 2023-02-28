@@ -4,6 +4,7 @@ import 'package:PraticFitBackend/src/core/services/dotEnv/dotEnvService.dart';
 import 'package:postgres/postgres.dart';
 import 'package:shelf_modular/shelf_modular.dart';
 
+// Classe responsável por gerenciar a conexão com o banco de dados
 class PostgresDatabase implements RemoteDatabase, Disposable {
   final completer = Completer<PostgreSQLConnection>();
   final DotEnvService dotEnv;
@@ -12,6 +13,7 @@ class PostgresDatabase implements RemoteDatabase, Disposable {
     _init();
   }
 
+  // Função responsável por iniciar a conexão com o banco de dados
   _init() async {
     final url = dotEnv['DATABASE_URL'];
     final uri = Uri.parse(url!);
@@ -27,6 +29,7 @@ class PostgresDatabase implements RemoteDatabase, Disposable {
     completer.complete(connection);
   }
 
+  // Função responsável por executar uma query no banco de dados
   @override
   Future<List<Map<String, Map<String, dynamic>>>> query(
     String queryText, {
@@ -40,6 +43,7 @@ class PostgresDatabase implements RemoteDatabase, Disposable {
     );
   }
 
+  // Função responsável por fechar a conexão com o banco de dados
   @override
   void dispose() async {
     final connection = await completer.future;
