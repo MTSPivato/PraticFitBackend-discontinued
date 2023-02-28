@@ -9,31 +9,31 @@ servers:
   - url: http://191.252.195.175:47929
     description: Remote server
 tags:
-- name: "auth"
-  description: "Access to auth"
-- name: "user"
-  description: "Access to User"
+  - name: "auth"
+    description: "Access to auth"
+  - name: "user"
+    description: "Access to User"
 
 paths:
   # auth
   /auth/login:
-    $ref: 'src/auth.yaml#/components/Login'
+    $ref: "src/auth.yaml#/components/Login"
   /auth/check_token:
-    $ref: 'src/auth.yaml#/components/CheckToken'
+    $ref: "src/auth.yaml#/components/CheckToken"
   /auth/refresh_token:
-    $ref: 'src/auth.yaml#/components/RefreshToken'
+    $ref: "src/auth.yaml#/components/RefreshToken"
   /auth/update_password:
-    $ref: 'src/auth.yaml#/components/UpdatePassword'
+    $ref: "src/auth.yaml#/components/UpdatePassword"
 
   # user
   /user/{id}:
-    $ref: 'src/user.yaml#/components/GetOneOrDelete'
+    $ref: "src/user.yaml#/components/GetOneOrDelete"
   /user:
-    $ref: 'src/user.yaml#/components/UserCrud'
-    
+    $ref: "src/user.yaml#/components/UserCrud"
+
 components:
   securitySchemes:
-    basicAuth:   
+    basicAuth:
       type: http
       scheme: basic
     bearerAuth:
@@ -46,4 +46,3 @@ components:
       scheme: bearer
       bearerFormat: JWT
       description: "RefreshToken"
-
