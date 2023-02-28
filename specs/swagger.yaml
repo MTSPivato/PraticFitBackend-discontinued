@@ -46,10 +46,4 @@ components:
       scheme: bearer
       bearerFormat: JWT
       description: "RefreshToken"
-  schemas:
-    BackendException:
-      type: object 
-      properties:
-        error: 
-          type: string
 

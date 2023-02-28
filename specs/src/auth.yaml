@@ -40,13 +40,13 @@ components:
           content:
              application/json:
               schema: 
-                $ref: '../swagger.yaml#/components/schemas/BackendException'
+                $ref: './error.yaml#/BackendException'
         '404':
           description: ''
           content:
              application/json:
               schema: 
-                $ref: '../swagger.yaml#/components/schemas/BackendException'
+                $ref: './error.yaml#/BackendException'
   RefreshToken: 
     get:
       tags:
@@ -66,13 +66,13 @@ components:
           content:
              application/json:
               schema: 
-                $ref: '../swagger.yaml#/components/schemas/BackendException'
+                $ref: './error.yaml#/BackendException'
         '404':
           description: ''
           content:
              application/json:
               schema: 
-                $ref: '../swagger.yaml#/components/schemas/BackendException'
+                $ref: './error.yaml#/BackendException'
   CheckToken: 
     get:
       tags:
@@ -95,13 +95,13 @@ components:
           content:
              application/json:
               schema: 
-                $ref: '../swagger.yaml#/components/schemas/BackendException'
+                $ref: './error.yaml#/BackendException'
         '404':
           description: ''
           content:
              application/json:
               schema: 
-                $ref: '../swagger.yaml#/components/schemas/BackendException'
+                $ref: './error.yaml#/BackendException'
   Login: 
     get:
       tags:
@@ -121,10 +121,10 @@ components:
           content:
              application/json:
               schema: 
-                $ref: '../swagger.yaml#/components/schemas/BackendException'
+                $ref: './error.yaml#/BackendException'
         '404':
           description: ''
           content:
              application/json:
               schema: 
-                $ref: '../swagger.yaml#/components/schemas/BackendException'
+                $ref: './error.yaml#/BackendException'

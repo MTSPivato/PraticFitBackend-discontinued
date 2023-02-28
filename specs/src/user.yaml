@@ -52,8 +52,8 @@ components:
           description: ''
           content:
              application/json:
-              schema: 
-                $ref: '../swagger.yaml#/components/schemas/BackendException'
+              schema:
+                $ref: './error.yaml#/BackendException'
     post:
       tags:
         - 'user'
@@ -78,7 +78,7 @@ components:
           content:
              application/json:
               schema: 
-                $ref: '../swagger.yaml#/components/schemas/BackendException'
+                $ref: './error.yaml#/BackendException'
     put:
       tags:
         - 'user'
@@ -104,7 +104,7 @@ components:
           content:
              application/json:
               schema: 
-                $ref: '../swagger.yaml#/components/schemas/BackendException'
+                $ref: './error.yaml#/BackendException'
   GetOneOrDelete: 
     get:
       tags:
@@ -130,7 +130,7 @@ components:
           content:
              application/json:
               schema: 
-                $ref: '../swagger.yaml#/components/schemas/BackendException'
+                $ref: './error.yaml#/BackendException'
     delete:
       tags:
         - 'user'
@@ -158,4 +158,4 @@ components:
           content:
              application/json:
               schema: 
-                $ref: '../swagger.yaml#/components/schemas/BackendException'
+                $ref: './error.yaml#/BackendException'
