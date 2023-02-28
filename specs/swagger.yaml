@@ -15,7 +15,7 @@ paths:
     get:
       tags:
         - "User"
-      description: "Get all users"
+      summary: Get all users
       responses:
         "200":
           description: "successful operation"
@@ -31,16 +31,16 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/BackendException"
-  # Create a new user
+    # Create a new user
     post:
       tags:
         - "User"
-      description: "Create a new user"
+      summary: "Create a new user"
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateUserResponse"
+              $ref: "#/components/schemas/CreateUser"
         description: "User object that needs to be added"
         required: true
       responses:
@@ -61,7 +61,7 @@ paths:
     get:
       tags:
         - "User"
-      description: "Get user by id"
+      summary: "Get user by id"
       parameters:
         - name: "id"
           in: "path"
@@ -76,7 +76,73 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GetAllUsersResponse"
+                $ref: "#/components/schemas/GetUserByIdResponse"
+        "400":
+          description: "Invalid status value"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BackendException"
+    # Update user by id and password
+    put:
+      tags:
+        - "User"
+      summary: "Update user by id and password"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of user to return"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateUserById"
+        description: "User object that needs to be updated"
+        required: true
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UpdateUserByIdResponse"
+        "400":
+          description: "Invalid status value"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BackendException"
+    # Delete user by id and password
+    delete:
+      tags:
+        - "User"
+      summary: "Delete user by id and password"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of user to return"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DeleteUserById"
+        description: "User object that needs to be deleted"
+        required: true
+      responses:
+        "200":
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeleteUserByIdResponse"
         "400":
           description: "Invalid status value"
           content:
@@ -86,6 +152,7 @@ paths:
 
 components:
   schemas:
+    # Get all users response
     GetAllUsersResponse:
       type: object
       properties:
@@ -95,38 +162,84 @@ components:
           type: string
         email:
           type: string
-        birth_date:
-          type: string
-          format: date-time
-        gender:
-          type: string
-          enum:
-            - "male"
-            - "female"
         role:
           type: string
-          default: "user"
-          enum:
-            - "user"
-            - "admin"
-        created_at:
+    # Get user by id response
+    GetUserByIdResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
           type: string
-          format: date-time
-        updated_at:
+        email:
           type: string
-          format: date-time
-        deleted_at:
+        role:
           type: string
-          format: date-time
+    # Create user
+    CreateUser:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        role:
+          type: string
+    # Create user response
     CreateUserResponse:
-        type: object
-        properties:
-          name:
-            type: string
-          email:
-            type: string
-          password:
-            type: string
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+    # Update user by id and password
+    UpdateUserById:
+      type: object
+      properties:
+        id:
+          type: integer
+        password:
+          type: string
+    # Update user by id response
+    UpdateUserByIdResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+    # Delete user by id and password
+    DeleteUserById:
+      type: object
+      properties:
+        id:
+          type: integer
+        password:
+          type: string
+    # Delete user by id response
+    DeleteUserByIdResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
     BackendException:
       type: object
       properties:

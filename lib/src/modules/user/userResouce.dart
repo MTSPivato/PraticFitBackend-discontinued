@@ -39,7 +39,7 @@ class UserResource extends Resource {
     userParams.remove('id');
     final database = injector.get<RemoteDatabase>();
     final result = await database.query(
-        'INSERT INTO "User" (name, email, password) VALUES (@name, @email, @password) RETURNING id, email, name;',
+        'INSERT INTO "User" (name, email, password) VALUES (@name, @email, @password) RETURNING id, email, name, role;',
         variables: userParams);
     final userMap = result.map((e) => e['User']).first;
     return Response.ok(jsonEncode(userMap));
