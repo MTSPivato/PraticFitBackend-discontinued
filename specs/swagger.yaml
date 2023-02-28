@@ -1,249 +1,55 @@
 openapi: 3.0.0
-
-# Informações gerais da API
 info:
-  title: "Pratic Fit Backend"
-  description: "Backend API for Pratic Fit App | API de backend para o aplicativo Pratic Fit"
+  description: "Pratic Fit Backend API"
   version: "0.1.0.1"
+  title: "Pratic Fit Backend"
 servers:
-  - url: http://localhost:22669
+  - url: http://localhost:47929
     description: Local server
-  - url: http://191.252.195.175:22669
+  - url: http://191.252.195.175:47929
     description: Remote server
+tags:
+- name: "auth"
+  description: "Access to auth"
+- name: "user"
+  description: "Access to User"
 
 paths:
-  # Retorna todos os usuários
-  /user:
-    get:
-      tags:
-        - "User"
-      summary: "Get all users | Retorna todos os usuários"
-      responses:
-        "200":
-          description: "successful operation"
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/GetAllUsersResponse"
-        "400":
-          description: "Invalid status value"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/BackendException"
-    # Cria um novo usuário
-    post:
-      tags:
-        - "User"
-      summary: "Create a new user | Cria um novo usuário"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CreateUser"
-        description: "User object that needs to be added"
-        required: true
-      responses:
-        "200":
-          description: "successful operation"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/CreateUserResponse"
-        "400":
-          description: "Invalid status value"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/BackendException"
-  # Busca usuário por id
-  /user/{id}:
-    get:
-      tags:
-        - "User"
-      summary: "Get user by id | Retorna usuário por id"
-      parameters:
-        - name: "id"
-          in: "path"
-          description: "ID of user to return | ID do usuário a ser retornado"
-          required: true
-          schema:
-            type: "integer"
-            format: "int64"
-      responses:
-        "200":
-          description: "successful operation"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/GetUserByIdResponse"
-        "400":
-          description: "Invalid status value"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/BackendException"
-    # Atualiza usuário por id e senha
-    put:
-      tags:
-        - "User"
-      summary: "Update user by id and password | Atualiza usuário por id e senha"
-      parameters:
-        - name: "id"
-          in: "path"
-          description: "ID of user to return"
-          required: true
-          schema:
-            type: "integer"
-            format: "int64"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/UpdateUserById"
-        description: "User object that needs to be updated"
-        required: true
-      responses:
-        "200":
-          description: "successful operation"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UpdateUserByIdResponse"
-        "400":
-          description: "Invalid status value"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/BackendException"
-    # Deleta usuário por id e senha
-    delete:
-      tags:
-        - "User"
-      summary: "Delete user by id and password | Deleta usuário por id e senha"
-      parameters:
-        - name: "id"
-          in: "path"
-          description: "ID of user to return"
-          required: true
-          schema:
-            type: "integer"
-            format: "int64"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/DeleteUserById"
-        description: "User object that needs to be deleted"
-        required: true
-      responses:
-        "200":
-          description: "successful operation"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/DeleteUserByIdResponse"
-        "400":
-          description: "Invalid status value"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/BackendException"
+  # auth
+  /auth/login:
+    $ref: 'src/auth.yaml#/components/Login'
+  /auth/check_token:
+    $ref: 'src/auth.yaml#/components/CheckToken'
+  /auth/refresh_token:
+    $ref: 'src/auth.yaml#/components/RefreshToken'
+  /auth/update_password:
+    $ref: 'src/auth.yaml#/components/UpdatePassword'
 
+  # user
+  /user/{id}:
+    $ref: 'src/user.yaml#/components/GetOneOrDelete'
+  /user:
+    $ref: 'src/user.yaml#/components/UserCrud'
+    
 components:
+  securitySchemes:
+    basicAuth:   
+      type: http
+      scheme: basic
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: "Auth header (Authorization) Access Token"
+    bearerRefreshAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: "RefreshToken"
   schemas:
-    # Retorna usuário por id
-    GetAllUsersResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        email:
-          type: string
-        role:
-          type: string
-    # Resposta de usuário por id
-    GetUserByIdResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        email:
-          type: string
-        role:
-          type: string
-    # Cria um novo usuário
-    CreateUser:
-      type: object
-      properties:
-        name:
-          type: string
-        email:
-          type: string
-        password:
-          type: string
-        role:
-          type: string
-    # Resposta de criação de usuário
-    CreateUserResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        email:
-          type: string
-        role:
-          type: string
-    # Atualiza usuário por id e senha
-    UpdateUserById:
-      type: object
-      properties:
-        id:
-          type: integer
-        password:
-          type: string
-    # Resposta de atualização de usuário
-    UpdateUserByIdResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        email:
-          type: string
-        role:
-          type: string
-    # Deleta usuário por id e senha
-    DeleteUserById:
-      type: object
-      properties:
-        id:
-          type: integer
-        password:
-          type: string
-    # Resposta de exclusão de usuário
-    DeleteUserByIdResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        email:
-          type: string
-        role:
-          type: string
     BackendException:
-      type: object
+      type: object 
       properties:
-        error:
+        error: 
           type: string
+

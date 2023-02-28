@@ -1,13 +1,12 @@
 import 'package:PraticFitBackend/src/core/services/dotEnv/dotEnvService.dart';
+import 'package:PraticFitBackend/src/core/services/jwt/jwtService.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
-import '../jwtService.dart';
 
-// Classe responsável por gerenciar o serviço de JWT
 class JwtServiceImpl implements JwtService {
   final DotEnvService dotEnvService;
+
   JwtServiceImpl(this.dotEnvService);
 
-  // Método responsável por gerar o token
   @override
   String generateToken(Map claims, String audiance) {
     final jwt = JWT(claims, audience: Audience.one(audiance));
@@ -15,7 +14,6 @@ class JwtServiceImpl implements JwtService {
     return token;
   }
 
-  // Método responsável por verificar se o token é válido
   @override
   void verifyToken(String token, String audiance) {
     JWT.verify(
@@ -25,7 +23,6 @@ class JwtServiceImpl implements JwtService {
     );
   }
 
-  // Método responsável por retornar o payload do token
   @override
   Map getPayload(String token) {
     final jwt = JWT.verify(
@@ -35,6 +32,7 @@ class JwtServiceImpl implements JwtService {
       checkHeaderType: false,
       checkNotBefore: false,
     );
+
     return jwt.payload;
   }
 }
