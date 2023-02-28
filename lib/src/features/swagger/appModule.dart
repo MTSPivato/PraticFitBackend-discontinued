@@ -1,10 +1,10 @@
 import 'package:PraticFitBackend/src/core/services/database/remoteDatabase.dart';
 import 'package:PraticFitBackend/src/core/services/dotEnv/dotEnvService.dart';
-import 'package:PraticFitBackend/src/modules/user/userResouce.dart';
+import 'package:PraticFitBackend/src/features/user/userResouce.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_modular/shelf_modular.dart';
-import 'core/services/database/postgres/postgresDatabase.dart';
-import 'modules/user/swagger/swaggerHandler.dart';
+import '../../core/services/database/postgres/postgresDatabase.dart';
+import '../swaggerHandler.dart';
 
 class AppModule extends Module {
   @override

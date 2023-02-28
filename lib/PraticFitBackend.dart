@@ -1,4 +1,4 @@
-import 'package:PraticFitBackend/src/appModule.dart';
+import 'package:PraticFitBackend/src/features/swagger/appModule.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_modular/shelf_modular.dart';
 
