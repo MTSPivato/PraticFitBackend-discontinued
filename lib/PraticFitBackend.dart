@@ -1,3 +1,4 @@
+import 'package:PraticFitBackend/src/features/auth/errors/errors.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_modular/shelf_modular.dart';
 
@@ -14,14 +15,23 @@ Future<Handler> startShelfModular() async {
 Middleware jsonResponse() {
   return (handler) {
     return (request) async {
-      var response = await handler(request);
+      try {
+        var response = await handler(request);
 
-      response = response.change(headers: {
-        'content-type': 'application/json',
-        ...response.headers,
-      });
+        response = response.change(headers: {
+          'content-type': 'application/json',
+          ...response.headers,
+        });
 
-      return response;
+        return response;
+      } catch (e) {
+        if (e is AuthException) {
+          return Response(e.statusCode, body: e.toJson());
+        } else {
+          // Tratar outras exceções aqui, se necessário
+          rethrow;
+        }
+      }
     };
   };
 }
