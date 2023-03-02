@@ -1,10 +1,10 @@
 import 'dart:async';
-
 import 'package:PraticFitBackend/src/core/services/database/remoteDatabase.dart';
 import 'package:PraticFitBackend/src/core/services/dotEnv/dotEnvService.dart';
 import 'package:postgres/postgres.dart';
 import 'package:shelf_modular/shelf_modular.dart';
 
+// Classe responsável por gerenciar a conexão com o banco de dados
 class PostgresDatabase implements RemoteDatabase, Disposable {
   final completer = Completer<PostgreSQLConnection>();
   final DotEnvService dotEnv;

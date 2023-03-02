@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+// Classe responsável por armazenar os tokens de autenticação
 class Tokenization {
   final String accessToken;
   final String refreshToken;

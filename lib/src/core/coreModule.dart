@@ -8,6 +8,7 @@ import 'services/jwt/dartJsonwebtoken/jwtServiceImpl.dart';
 import 'services/jwt/jwtService.dart';
 import 'services/requestExtractor/requestExtractor.dart';
 
+// Classe responsável por gerenciar os módulos do projeto
 class CoreModule extends Module {
   @override
   List<Bind<Object>> get binds => [

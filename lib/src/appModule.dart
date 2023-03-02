@@ -6,6 +6,7 @@ import 'features/auth/authModule.dart';
 import 'features/swagger/swaggerHandler.dart';
 import 'features/user/userResource.dart';
 
+// Classe responsável por gerenciar as rotas da aplicação
 class AppModule extends Module {
   @override
   List<Module> get imports => [

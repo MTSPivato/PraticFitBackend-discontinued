@@ -1,13 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:PraticFitBackend/src/core/services/bcrypt/bcryptService.dart';
 import 'package:PraticFitBackend/src/core/services/database/remoteDatabase.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_modular/shelf_modular.dart';
-
 import '../auth/guard/authGuard.dart';
 
+// Classe responsável por gerenciar as rotas de usuário
 class UserResource extends Resource {
   @override
   List<Route> get routes => [
@@ -18,6 +17,7 @@ class UserResource extends Resource {
         Route.delete('/user/:id', _deleteUser, middlewares: [AuthGuard()]),
       ];
 
+  // Método responsável por retornar todos os usuários
   FutureOr<Response> _getAllUser(Injector injector) async {
     final database = injector.get<RemoteDatabase>();
     final result =
@@ -28,6 +28,7 @@ class UserResource extends Resource {
     return Response.ok(jsonEncode(listUsers));
   }
 
+  // Método responsável por retornar um usuário pelo id
   FutureOr<Response> _getUserByid(
       ModularArguments arguments, Injector injector) async {
     final id = arguments.params['id'];
@@ -39,6 +40,7 @@ class UserResource extends Resource {
     return Response.ok(jsonEncode(userMap));
   }
 
+  // Método responsável por deletar um usuário pelo id
   FutureOr<Response> _deleteUser(
       ModularArguments arguments, Injector injector) async {
     final id = arguments.params['id'];
@@ -49,6 +51,7 @@ class UserResource extends Resource {
     return Response.ok(jsonEncode({'message': 'deleted $id'}));
   }
 
+  // Método responsável por criar um usuário
   FutureOr<Response> _createUser(
       ModularArguments arguments, Injector injector) async {
     final bcrypt = injector.get<BCryptService>();
@@ -65,6 +68,7 @@ class UserResource extends Resource {
     return Response.ok(jsonEncode(userMap));
   }
 
+  // Método responsável por atualizar um usuário
   FutureOr<Response> _updateUser(
       ModularArguments arguments, Injector injector) async {
     final userParams = (arguments.data as Map).cast<String, dynamic>();

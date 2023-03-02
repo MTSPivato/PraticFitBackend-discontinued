@@ -6,9 +6,9 @@ import 'package:PraticFitBackend/src/features/auth/errors/errors.dart';
 import 'package:PraticFitBackend/src/features/auth/repositories/authRepository.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_modular/shelf_modular.dart';
-
 import '../guard/authGuard.dart';
 
+// Classe responsável por gerenciar as rotas de autenticação
 class AuthResource extends Resource {
   @override
   List<Route> get routes => [
@@ -21,6 +21,7 @@ class AuthResource extends Resource {
             middlewares: [AuthGuard()]),
       ];
 
+  // Método responsável por efetuar o login
   FutureOr<Response> _login(Request request, Injector injector) async {
     final authRepository = injector.get<AuthRepository>();
     final extractor = injector.get<RequestExtractor>();
@@ -34,6 +35,7 @@ class AuthResource extends Resource {
     }
   }
 
+  // Método responsável por atualizar o token
   FutureOr<Response> _refreshToken(Injector injector, Request request) async {
     final extractor = injector.get<RequestExtractor>();
     final authRepository = injector.get<AuthRepository>();
@@ -47,6 +49,7 @@ class AuthResource extends Resource {
     return Response.ok(jsonEncode({'message': 'ok'}));
   }
 
+  // Método responsável por atualizar a senha
   FutureOr<Response> _updatePassword(
     Injector injector,
     Request request,

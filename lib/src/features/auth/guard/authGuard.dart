@@ -1,10 +1,10 @@
 import 'dart:convert';
-
 import 'package:PraticFitBackend/src/core/services/jwt/jwtService.dart';
 import 'package:PraticFitBackend/src/core/services/requestExtractor/requestExtractor.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_modular/shelf_modular.dart';
 
+// Classe responsável por verificar se o token de autenticação fornecido na requisição é válido e se o usuário que está tentando acessar o recurso tem as permissões necessárias.
 class AuthGuard extends ModularMiddleware {
   final List<String> roles;
   final bool isRefreshToken;

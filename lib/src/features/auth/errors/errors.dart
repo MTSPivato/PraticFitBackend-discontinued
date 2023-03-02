@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+// Classe responsável por tratar as exceções
 class AuthException implements Exception {
   final String message;
   final StackTrace? stackTrace;

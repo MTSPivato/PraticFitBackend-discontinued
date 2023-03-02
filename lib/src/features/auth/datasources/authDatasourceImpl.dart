@@ -1,6 +1,7 @@
 import 'package:PraticFitBackend/src/core/services/database/remoteDatabase.dart';
 import 'package:PraticFitBackend/src/features/auth/repositories/authRepository.dart';
 
+// Classe responsável pelas querys de autenticação
 class AuthDatasourceImpl implements AuthDatasource {
   final RemoteDatabase database;
 

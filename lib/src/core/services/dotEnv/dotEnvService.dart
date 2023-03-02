@@ -1,5 +1,6 @@
 import 'dart:io';
 
+// Classe responsável por gerenciar as variáveis de ambiente
 class DotEnvService {
   final Map<String, String> _map = {};
 

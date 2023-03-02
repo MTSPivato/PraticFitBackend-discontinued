@@ -1,10 +1,10 @@
 import 'package:PraticFitBackend/src/core/services/requestExtractor/requestExtractor.dart';
-
 import '../../../core/services/bcrypt/bcryptService.dart';
 import '../../../core/services/jwt/jwtService.dart';
 import '../errors/errors.dart';
 import '../models/tokenization.dart';
 
+//  Classe responsável por gerenciar as rotas de autenticação
 abstract class AuthDatasource {
   Future<Map> getIdAndRoleByEmail(String email);
   Future<String> getRoleById(id);
@@ -12,6 +12,7 @@ abstract class AuthDatasource {
   Future<void> updatePasswordById(id, String password);
 }
 
+// Classe responsável por validar as credenciais de login
 class AuthRepository {
   final BCryptService bcrypt;
   final JwtService jwt;
@@ -35,6 +36,7 @@ class AuthRepository {
     return _generateToken(payload);
   }
 
+  // Método responsável por atualizar o token de autenticação
   Future<Tokenization> refreshToken(String token) async {
     final payload = jwt.getPayload(token);
     final role = await datasource.getRoleById(payload['id']);
@@ -44,6 +46,7 @@ class AuthRepository {
     });
   }
 
+  // Método responsável por gerar um novo token de autenticação
   Tokenization _generateToken(Map payload) {
     payload['exp'] = _determineExpiration(Duration(minutes: 10));
 
@@ -54,6 +57,7 @@ class AuthRepository {
     return Tokenization(accessToken: accessToken, refreshToken: refreshToken);
   }
 
+  // Método responsável por determinar a data de expiração do token
   int _determineExpiration(Duration duration) {
     final expiresDate = DateTime.now().add(duration);
     final expiresIn =
@@ -61,6 +65,7 @@ class AuthRepository {
     return expiresIn.inSeconds;
   }
 
+  // Método responsável por atualizar a senha do usuário
   Future<void> updatePassword(
       String token, String password, String newPassword) async {
     final payload = jwt.getPayload(token);

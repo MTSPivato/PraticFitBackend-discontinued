@@ -2,6 +2,7 @@ import 'package:PraticFitBackend/src/core/services/dotEnv/dotEnvService.dart';
 import 'package:PraticFitBackend/src/core/services/jwt/jwtService.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 
+// Classe responsável por gerar e verificar tokens JWT
 class JwtServiceImpl implements JwtService {
   final DotEnvService dotEnvService;
 

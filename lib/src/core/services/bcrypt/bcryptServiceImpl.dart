@@ -1,7 +1,7 @@
 import 'package:bcrypt/bcrypt.dart';
-
 import 'bcryptService.dart';
 
+// Classe responsável por gerenciar os métodos de encriptação e desencriptação
 class BCryptServiceImpl implements BCryptService {
   @override
   bool checkHash(String text, String hash) {

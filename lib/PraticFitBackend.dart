@@ -1,9 +1,9 @@
 import 'package:PraticFitBackend/src/features/auth/errors/errors.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_modular/shelf_modular.dart';
-
 import 'src/appModule.dart';
 
+// Método responsável por iniciar o servidor
 Future<Handler> startShelfModular() async {
   final handler = Modular(module: AppModule(), middlewares: [
     logRequests(),
@@ -12,6 +12,7 @@ Future<Handler> startShelfModular() async {
   return handler;
 }
 
+// Middleware responsável por sempre retornar o conteúdo em JSON
 Middleware jsonResponse() {
   return (handler) {
     return (request) async {
