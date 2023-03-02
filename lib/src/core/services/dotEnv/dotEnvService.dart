@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:PraticFitBackend/src/core/constants/isProduction.dart';
+
 // Classe responsável por gerenciar as variáveis de ambiente
 class DotEnvService {
   final Map<String, String> _map = {};
@@ -13,7 +15,7 @@ class DotEnvService {
   }
 
   void _init() {
-    final file = File('.env');
+    final file = File(Production ? '.env' : '.env.dev');
     final envText = file.readAsStringSync();
 
     for (var line in envText.split('\n')) {
