@@ -29,8 +29,7 @@ Middleware jsonResponse() {
         if (e is AuthException) {
           return Response(e.statusCode, body: e.toJson());
         } else {
-          // Tratar outras exceções aqui, se necessário
-          rethrow;
+          return Response(500, body: e.toString());
         }
       }
     };
