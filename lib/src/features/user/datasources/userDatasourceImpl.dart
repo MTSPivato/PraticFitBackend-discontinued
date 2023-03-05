@@ -1,5 +1,6 @@
 import 'package:PraticFitBackend/src/core/services/database/remoteDatabase.dart';
 import 'package:PraticFitBackend/src/features/auth/repositories/authRepository.dart';
+import 'package:PraticFitBackend/src/features/user/repositories/userRepository.dart';
 
 class UserDatasourceImpl implements UserDatasource{
   final RemoteDatabase database;
