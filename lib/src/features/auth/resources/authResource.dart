@@ -1,12 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:PraticFitBackend/src/core/services/requestExtractor/requestExtractor.dart';
 import 'package:PraticFitBackend/src/features/auth/errors/errors.dart';
+import 'package:PraticFitBackend/src/features/auth/guard/authGuard.dart';
 import 'package:PraticFitBackend/src/features/auth/repositories/authRepository.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_modular/shelf_modular.dart';
-import '../guard/authGuard.dart';
 
 // Classe responsável por gerenciar as rotas de autenticação
 class AuthResource extends Resource {

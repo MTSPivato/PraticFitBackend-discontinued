@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:PraticFitBackend/src/core/services/bcrypt/bcryptService.dart';
+import 'package:PraticFitBackend/src/features/auth/guard/authGuard.dart';
 import 'package:PraticFitBackend/src/features/user/repositories/userRepository.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_modular/shelf_modular.dart';
-import '../../auth/guard/authGuard.dart';
 import 'package:PraticFitBackend/src/features/user/errors/errors.dart';
 
 // Classe responsável por gerenciar as rotas de usuário

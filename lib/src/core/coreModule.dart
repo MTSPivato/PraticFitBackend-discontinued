@@ -1,12 +1,12 @@
+import 'package:PraticFitBackend/src/core/services/bcrypt/bcryptService.dart';
+import 'package:PraticFitBackend/src/core/services/bcrypt/bcryptServiceImpl.dart';
+import 'package:PraticFitBackend/src/core/services/database/postgres/postgres_database.dart';
+import 'package:PraticFitBackend/src/core/services/dotEnv/dotEnvService.dart';
+import 'package:PraticFitBackend/src/core/services/jwt/dartJsonwebtoken/jwtServiceImpl.dart';
+import 'package:PraticFitBackend/src/core/services/jwt/jwtService.dart';
+import 'package:PraticFitBackend/src/core/services/requestExtractor/requestExtractor.dart';
 import 'package:shelf_modular/shelf_modular.dart';
-import 'services/bcrypt/bcryptService.dart';
-import 'services/bcrypt/bcryptServiceImpl.dart';
-import 'services/database/postgres/postgres_database.dart';
 import 'services/database/remoteDatabase.dart';
-import 'services/dotEnv/dotEnvService.dart';
-import 'services/jwt/dartJsonwebtoken/jwtServiceImpl.dart';
-import 'services/jwt/jwtService.dart';
-import 'services/requestExtractor/requestExtractor.dart';
 
 // Classe responsável por gerenciar os módulos do projeto
 class CoreModule extends Module {

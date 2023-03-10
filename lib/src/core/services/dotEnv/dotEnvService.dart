@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:PraticFitBackend/src/core/constants/isProduction.dart';
 
 // Classe responsável por gerenciar as variáveis de ambiente

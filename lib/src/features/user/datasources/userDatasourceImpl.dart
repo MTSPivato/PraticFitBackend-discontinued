@@ -1,5 +1,4 @@
 import 'package:PraticFitBackend/src/core/services/database/remoteDatabase.dart';
-import 'package:PraticFitBackend/src/features/user/errors/errors.dart';
 import 'package:PraticFitBackend/src/features/user/repositories/userRepository.dart';
 
 class UserDatasourceImpl implements UserDatasource {

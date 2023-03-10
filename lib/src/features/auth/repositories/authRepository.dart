@@ -1,8 +1,8 @@
+import 'package:PraticFitBackend/src/core/services/bcrypt/bcryptService.dart';
+import 'package:PraticFitBackend/src/core/services/jwt/jwtService.dart';
 import 'package:PraticFitBackend/src/core/services/requestExtractor/requestExtractor.dart';
-import '../../../core/services/bcrypt/bcryptService.dart';
-import '../../../core/services/jwt/jwtService.dart';
-import '../errors/errors.dart';
-import '../models/tokenization.dart';
+import 'package:PraticFitBackend/src/features/auth/errors/errors.dart';
+import 'package:PraticFitBackend/src/features/auth/models/tokenization.dart';
 
 //  Classe responsável por gerenciar as rotas de autenticação
 abstract class AuthDatasource {

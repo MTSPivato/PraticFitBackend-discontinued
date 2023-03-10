@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:shelf/shelf.dart';
 
 // Classe responsável por extrair informações da requisição
