@@ -4,7 +4,7 @@ import 'package:PraticFitBackend/src/core/services/bcrypt/bcryptService.dart';
 import 'package:PraticFitBackend/src/core/services/database/remoteDatabase.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_modular/shelf_modular.dart';
-import '../../auth/guard/authGuard.dart';
+import '../auth/guard/authGuard.dart';
 
 // Classe responsável por gerenciar as rotas de usuário
 class UserResource extends Resource {
