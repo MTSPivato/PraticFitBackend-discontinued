@@ -36,6 +36,6 @@ dart compile exe bin/PraticFitBackend.dart -o main
 ./main
 ```
 
-## Conclusão
+## Conclusion
 
 Este README fornece informações importantes para configurar e executar o Pratic Fit Backend com segurança e eficiência. Se você tiver alguma dúvida, não hesite em entrar em contato com a equipe de desenvolvimento.
